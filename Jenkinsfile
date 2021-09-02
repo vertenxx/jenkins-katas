@@ -1,19 +1,15 @@
 pipeline {
   agent any
   stages {
-    stage('Parallel execution') {
-      parallel {
-        stage( 'Clone down'){
-          agent{
-            node{
-              label "swarm"
-            }
-          } 
+    stage( 'Clone down'){
+          agent { label "swarm" }
           steps{
             stash(name: "code", excludes: ".git")
           }
         }
-
+        
+    stage('Parallel execution') {
+      parallel {
         stage('Say Hello') {
           steps {
             sh '''echo "hello world"
