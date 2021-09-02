@@ -1,8 +1,5 @@
 pipeline {
   agent any
-  environment {
-    docker_username = "verten"
-  }
   stages {
     stage( 'Clone down'){
           agent { label "swarm" }
