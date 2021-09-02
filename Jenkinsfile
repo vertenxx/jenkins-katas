@@ -30,6 +30,7 @@ pipeline {
             unstash "code"
             sh 'ci/build-app.sh'
             archiveArtifacts 'app/build/libs/'
+            junit 'app/build/test-results/test/TEST-*.xml'
           }
         }
 
