@@ -7,7 +7,7 @@ pipeline {
             stash(name: "code", excludes: ".git")
           }
         }
-        
+
     stage('Parallel execution') {
       parallel {
         stage('Say Hello') {
@@ -27,6 +27,7 @@ pipeline {
             skipDefaultCheckout(true)
           }
           steps {
+            unstash "code"
             sh 'ci/build-app.sh'
             archiveArtifacts 'app/build/libs/'
           }
