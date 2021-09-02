@@ -71,7 +71,7 @@ pipeline {
     stage( 'Component test'){
       when{
         not{
-          branch pattern "/dev"
+          branch pattern: "/dev"
         }
       }
       steps{
