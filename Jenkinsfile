@@ -30,6 +30,22 @@ pipeline {
             unstash "code"
             sh 'ci/build-app.sh'
             archiveArtifacts 'app/build/libs/'
+          }
+        }
+
+        stage('Test app') {
+          agent {
+            docker {
+              image 'gradle:6-jdk11'
+            }
+          }
+          options{
+            skipDefaultCheckout(true)
+          }
+          steps {
+            sh 'ci/build-app.sh'
+            archiveArtifacts 'app/build/libs/'
+            sh 'ci/unit-test-app.sh'
             junit 'app/build/test-results/test/TEST-*.xml'
           }
         }
